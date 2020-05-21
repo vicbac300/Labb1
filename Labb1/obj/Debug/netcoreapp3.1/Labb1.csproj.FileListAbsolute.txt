@@ -155,3 +155,5 @@ F:\online\Dropbox\ITHS\3. Avancerad C#-programmering\Labb1\Labb1\bin\Debug\netco
 F:\online\Dropbox\ITHS\3. Avancerad C#-programmering\Labb1\Labb1\obj\Debug\netcoreapp3.1\Razor\Views\Products\Index.cshtml.g.cs
 F:\online\Dropbox\ITHS\3. Avancerad C#-programmering\Labb1\Labb1\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 F:\online\Dropbox\ITHS\3. Avancerad C#-programmering\Labb1\Labb1\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+F:\online\Dropbox\ITHS\3. Avancerad C#-programmering\Labb1\Labb1\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Index.cshtml.g.cs
+F:\online\Dropbox\ITHS\3. Avancerad C#-programmering\Labb1\Labb1\obj\Debug\netcoreapp3.1\Razor\Views\Cart\OrderSuccess.cshtml.g.cs

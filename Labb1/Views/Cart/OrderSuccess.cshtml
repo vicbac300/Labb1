@@ -1,0 +1,60 @@
+﻿@model Labb1.Models.Order
+
+@{
+    ViewData["Title"] = "OrderSuccess";
+}
+
+<h1>OrderSuccess</h1>
+
+
+<div>
+    <p>
+        @Html.LabelFor(modelItem => modelItem.ID)
+        @Html.DisplayFor(modelItem => modelItem.ID)
+    </p>
+    <p>
+        @Html.LabelFor(modelItem => modelItem.Date)
+        @Html.DisplayFor(modelItem => modelItem.Date)
+    </p>
+    <p>
+        @Html.LabelFor(modelItem => modelItem.UserID)
+        @Html.DisplayFor(modelItem => modelItem.UserID)
+    </p>
+    <p>
+        @Html.LabelFor(modelItem => modelItem.TotalPrice)
+        @Html.DisplayFor(modelItem => modelItem.TotalPrice)
+    </p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => new OrderRow().Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new OrderRow().Product.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new OrderRow().Amount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderRows)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

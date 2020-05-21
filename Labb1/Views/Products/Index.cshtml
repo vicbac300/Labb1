@@ -4,13 +4,23 @@
 }
 
 <h1>Products</h1>
-@foreach (var product in Model)
+<div class="d-flex flex-row justify-content-around align-content-around flex-wrap">
+@foreach (var item in Model)
 {
-<div>
-	--------------------
-	<h2>@product.Name</h2>
-	<h3>@product.Price SEK</h3>
-	<button>Add to chart</button> <br />
-	--------------------
-</div> 
+    <div class="card flex-grow-0 flex-shrink-1 m-1" style="flex-basis: 300px">
+        <div class="card-body">
+            <h3 class="card-title">@item.Name</h3>
+            <p class="card-text"></p>
+            <p>
+
+                @item.Price.ToString("C")
+                @if (User.Identity.IsAuthenticated)
+				{
+                    <span class="float-right">@Html.ActionLink("Buy", "AddToCart", "Products", new { id = item.ID })</span>
+				}
+            </p>
+        </div>
+    </div>
 }
+</div> 
+

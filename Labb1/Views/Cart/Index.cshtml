@@ -1,0 +1,57 @@
+﻿@model Labb1.ViewModels.CartViewModel
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Cart</h1>
+
+<form method="post" asp-action="PlaceOrder">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var cartItem in Model.Products.Values)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => cartItem.Product.Name)
+                        @Html.HiddenFor(modelItem => cartItem.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cartItem.Product.Price)
+                        @Html.HiddenFor(modelItem => cartItem.Product.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cartItem.Amount)
+                        @Html.HiddenFor(modelItem => cartItem.Amount)
+                    </td>
+                    <td>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        Total: @Model.TotalPrice.ToString("C")
+
+        <input type="submit" class="float-right btn btn-success" value="Order" />
+    </div>
+    @Html.HiddenFor(modelItem => modelItem.TotalPrice)
+
+</form>
+
