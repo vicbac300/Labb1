@@ -5,14 +5,10 @@ using System.Threading.Tasks;
 
 namespace Labb1.Models
 {
-	public class Product : A
+	public class Product
 	{
-		private int ID { get; set; } = 10;
-		public object CacheID { get { return ID; } }
-	}
-
-	interface A
-	{
-		object CacheID { get; }
+		public int ID { get; set; }
+		public string Name { get; set; }
+		public decimal Price { get; set; }
 	}
 }
