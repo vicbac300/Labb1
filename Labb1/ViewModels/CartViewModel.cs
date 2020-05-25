@@ -9,17 +9,13 @@ namespace Labb1.ViewModels
 	public class CartViewModel
 	{
 		public long CreatedTicks { get; set; }
-		public Dictionary<int, CartItem> Products { get; set; }
+		public List<CartItem> Products { get; set; }
 		public decimal TotalPrice { get; set; }
+		public decimal Test { get; set; }
 
 		public CartViewModel()
 		{
 			
-		}
-
-		public List<CartItem> GetProductsAsList()
-		{
-			return Products.Values.ToList();
 		}
 	}
 

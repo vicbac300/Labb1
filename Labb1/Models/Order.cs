@@ -9,7 +9,7 @@ namespace Labb1.Models
 	{
 		public int ID { get; set; }
 		public DateTime Date { get; set; }
-		public int UserID { get; set; }
+		public Guid UserID { get; set; }
 		public List<OrderRow> OrderRows { get; set; }
 		public decimal TotalPrice { get; set; }
 	}

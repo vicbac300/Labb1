@@ -23,21 +23,26 @@
             </tr>
         </thead>
         <tbody>
-
-            @foreach (var cartItem in Model.Products.Values)
+            @Html.HiddenFor(model => Model.TotalPrice)
+            @for (int i = 0; i < Model.Products.Count; i++)
             {
+
+                @Html.HiddenFor(model => Model.Products[i].Product.Name)
+                @Html.HiddenFor(model => Model.Products[i].Amount)
+                @Html.HiddenFor(model => Model.Products[i].Product.Price)
+
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => cartItem.Product.Name)
-                        @Html.HiddenFor(modelItem => cartItem.Product.Name)
+                        @Html.DisplayFor(modelItem => Model.Products[i].Product.Name)
+
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => cartItem.Product.Price)
-                        @Html.HiddenFor(modelItem => cartItem.Product.Price)
+                        @Html.DisplayFor(modelItem => Model.Products[i].Product.Price)
+
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => cartItem.Amount)
-                        @Html.HiddenFor(modelItem => cartItem.Amount)
+                        @Html.DisplayFor(modelItem => Model.Products[i].Amount)
+
                     </td>
                     <td>
                     </td>
@@ -48,10 +53,13 @@
     </table>
     <div>
         Total: @Model.TotalPrice.ToString("C")
+        @if (Model.Products.Count > 0)
+        {
+            <input type="submit" class="float-right btn btn-success" value="Order" />
+        }
 
-        <input type="submit" class="float-right btn btn-success" value="Order" />
     </div>
-    @Html.HiddenFor(modelItem => modelItem.TotalPrice)
+    
 
 </form>
 

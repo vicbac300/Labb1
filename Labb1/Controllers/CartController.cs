@@ -13,9 +13,9 @@ namespace Labb1.Controllers
     public class CartController : Controller
     {
         private readonly IProductService productService;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CartController(UserManager<IdentityUser> userManager)
+        public CartController(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
             this.productService = new MockProductService();
@@ -24,32 +24,38 @@ namespace Labb1.Controllers
         public IActionResult Index()
         {
             var cart = Request.Cookies.SingleOrDefault(cookie => cookie.Key == "cart");
-            var cartIds = cart.Value.Split(',');
+            string[] cartIds = new string[0];
+            if (cart.Key != null && cart.Value != null)
+            {
+                cartIds = cart.Value.Split(',');
+            }
+
             var products = productService.GetAll();
 
             CartViewModel vm = new CartViewModel();
             vm.CreatedTicks = DateTime.Now.Ticks;
-            vm.Products = new Dictionary<int, CartItem>();
+            vm.Test = 101;
 
+            Dictionary<int, CartItem> cartItemDict = new Dictionary<int, CartItem>();
             foreach (string idStr in cartIds)
             {
                 int id = int.Parse(idStr);
 
-                if (vm.Products.ContainsKey(id))
-                    vm.Products[id].Amount++;
+                if (cartItemDict.ContainsKey(id))
+                    cartItemDict[id].Amount++;
                 else
                 {
-                    vm.Products.Add(id,
+                    cartItemDict.Add(id,
                         new CartItem() { Product = productService.GetByID(id), Amount = 1 });
                 }
-                    
-
 
             }
 
+            vm.Products = cartItemDict.Values.ToList();
+
             // Totalpris.
             decimal total = 0m;
-            foreach (var item in vm.Products.Values)
+            foreach (var item in vm.Products)
             {
                 total += (item.Product.Price * item.Amount);
             }
@@ -60,21 +66,21 @@ namespace Labb1.Controllers
         }
 
         [HttpPost]
-        public IActionResult PlaceOrder([Bind("TotalPrice,Products")]CartViewModel vm)
+        public async Task<IActionResult> PlaceOrder([Bind("TotalPrice,Products,Test")]CartViewModel vm)
         {
+            OrderViewModel orderViewModel = new OrderViewModel();
             Order order = new Order();
             order.TotalPrice = vm.TotalPrice;
             order.Date = DateTime.Now;
-            order.OrderRows = vm.Products.Values.ToOrderRowList();
-            order.UserID = int.Parse(userManager.GetUserId(User));
+            order.OrderRows = vm.Products.ToOrderRowList();
 
-            return RedirectToAction("OrderSuccess", order);
+            order.UserID = Guid.Parse(userManager.GetUserId(User));
+
+            orderViewModel.Order = order;
+            orderViewModel.User = await userManager.GetUserAsync(User);
+
+            return View("OrderSuccess", orderViewModel);
         }
 
-        public IActionResult OrderSuccess(Order order)
-        {
-
-            return View(order);
-        }
     }
 }
